@@ -8,48 +8,66 @@ y= 250;     //Отступ по оси y
 width=10;   //Ширина контекста
 height=10;  //Высота контекста
 snake.fillRect(x, y, width, height); //Размер и расположение контекста на холсте
-speed=10; //Скорость змейки
-function move(e){ //Функция движения змейки
-    console.log(e.which);
+speed=1; //Скорость змейки
+start = Date.now(); // сохранить время начала
+dist="";
+
+var timer = setInterval(function() { // вычислить сколько времени прошло с начала анимации
+    var timePassed = Date.now() - start;
+
+  
+  move(timePassed);     // рисует состояние анимации, соответствующее времени timePassed
+
+}, 20);
+
+function move(e, timePassed){ //Функция движения змейки
     switch(e.keyCode){
-        case 39:    //Движение вправо
-            for(var i=0; i<speed; i++){
-                x+=1;
-                snake.fillRect(x, y, width, height);
-                snake.clearRect(x-10,y, width, height);                
-            }
-        break;
-        case 38:    //Движение вверх
-            for(var i=0; i<speed; i++){
-                y-=1;
-                snake.fillRect(x, y, width, height);
-                snake.clearRect(x, y+10, width, height);
-            }
+        case 39: dist="right";
         break;
 
-        case 40:    //Движение вниз
-            for(var i=0; i<speed; i++){
-                y+=1;
-                snake.fillRect(x, y, width, height);
-                snake.clearRect(x, y-10, width, height);
-            }
+        case 38: dist="up";
         break;
 
-        case 37:    //Движение влево
-            for(var i=0; i<speed; i++){
-                x-=1;
-                snake.fillRect(x, y, width, height);
-                snake.clearRect(x+10, y, width, height);
-            }
+        case 40: dist="down";
+        break;
+
+        case 37: dist="left";
         break;
     }
 
-    if (x>500 || y>500 || x<0 || y<0){  //Выход за границу возвращает змейку в центр
+    switch(dist){
+        case "right":
+            timePassed = Date.now() - start;
+            x+=1;
+            snake.fillRect(x, y, width, height);
+            snake.clearRect(x-10,y, width, height);
+        break; 
+
+        case "up":
+            timePassed = Date.now() - start;
+            y-=1;
+            snake.fillRect(x, y, width, height);
+            snake.clearRect(x, y+10, width, height);
+        break; 
+
+        case "down":
+            timePassed = Date.now() - start;
+            y+=1;
+            snake.fillRect(x, y, width, height);
+            snake.clearRect(x, y-10, width, height);
+        break; 
+
+        case "left":
+            timePassed = Date.now() - start;
+            x-=1;
+            snake.fillRect(x, y, width, height);
+            snake.clearRect(x+10, y, width, height); 
+        break;        
+    }
+
+    if (x>500 || y>500 || x<-10 || y<-10){  //Выход за границу возвращает змейку в центр
         x=250; y=250;
     }
-    // console.log(e.keyCode);
-    console.log("x:"+x+"; "+"y:"+y);
 }
 
-// addEventListener ("keydown", move); //Слушатель нажатия клавиши для функции move
-addEventListener ("keydown", move);
+addEventListener ("keydown", move); //Слушатель нажатия клавиши для функции move
