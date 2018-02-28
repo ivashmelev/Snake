@@ -10,3 +10,7 @@ td{
 tr{
     width: 50px;
 }
+
+#canvas{
+   border: 1px solid black;
+}
