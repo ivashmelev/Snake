@@ -1,73 +1,84 @@
-canvas = document.getElementById("canvas");    //Объявление элемента холста
-canvas.width=500;   //Ширина холста
-canvas.height=500;  //Высота холста
-snake = canvas.getContext("2d");  //Присваивание контекста
-snake.fillStyle = "black";    //Тип контекста
-x = 250;    //Отступ по оси x
-y= 250;     //Отступ по оси y
-width=10;   //Ширина контекста
-height=10;  //Высота контекста
-snake.fillRect(x, y, width, height); //Размер и расположение контекста на холсте
-speed=1; //Скорость змейки
-start = Date.now(); // сохранить время начала
+field = document.getElementsByClassName("field")[0];
+snake = document.getElementsByClassName("snake")[0];
+x = 250;
+y = 250;
+snake.style.left=x+"px";
+snake.style.top=y+"px";
 dist="";
+speed=5;
+start=Date.now();
+width=10;
+height=10;
+snake.style.width=width+"px";
+snake.style.height=height +"px";
 
 var timer = setInterval(function() { // вычислить сколько времени прошло с начала анимации
     var timePassed = Date.now() - start;
 
   
-  move(timePassed);     // рисует состояние анимации, соответствующее времени timePassed
+  moveSnake(timePassed);     // рисует состояние анимации, соответствующее времени timePassed
 
-}, 20);
+}, 10);
 
-function move(e, timePassed){ //Функция движения змейки
+
+function moveSnake(e, timePassed){
     switch(e.keyCode){
         case 39: dist="right";
         break;
-
         case 38: dist="up";
         break;
-
-        case 40: dist="down";
-        break;
-
         case 37: dist="left";
+        break;
+        case 40: dist="down";
         break;
     }
 
     switch(dist){
-        case "right":
-            timePassed = Date.now() - start;
-            x+=1;
-            snake.fillRect(x, y, width, height);
-            snake.clearRect(x-10,y, width, height);
-        break; 
+        case "right": 
+            var timePassed = Date.now() - start;
+            x+=speed;
+            width=30;
+            height=10;
+            snake.style.left=x+"px";
+            snake.style.top=y+"px";
+            snake.style.width=width+"px";
+            snake.style.height=height +"px";
+        break;
 
         case "up":
-            timePassed = Date.now() - start;
-            y-=1;
-            snake.fillRect(x, y, width, height);
-            snake.clearRect(x, y+10, width, height);
-        break; 
-
-        case "down":
-            timePassed = Date.now() - start;
-            y+=1;
-            snake.fillRect(x, y, width, height);
-            snake.clearRect(x, y-10, width, height);
-        break; 
+            var timePassed = Date.now() - start;
+            y-=speed;
+            width=10;
+            height=30;
+            snake.style.left=x+"px";
+            snake.style.top=y+"px";
+            snake.style.width=width+"px";
+            snake.style.height=height +"px";
+        break;
 
         case "left":
-            timePassed = Date.now() - start;
-            x-=1;
-            snake.fillRect(x, y, width, height);
-            snake.clearRect(x+10, y, width, height); 
-        break;        
+            var timePassed = Date.now() - start;
+            x-=speed;
+            snake.style.left=x+"px";
+            snake.style.top=y+"px";
+        break;
+
+        case "down":
+            var timePassed = Date.now() - start;
+            y+=speed;
+            snake.style.left=x+"px";
+            snake.style.top=y+"px";
+        break;
     }
 
-    if (x>500 || y>500 || x<-10 || y<-10){  //Выход за границу возвращает змейку в центр
-        x=250; y=250;
-    }
+        if (x>500 || y>500 || x<0 || y<0){           
+            x=250;
+            y=250;            
+            snake.style.left=x+"px";
+            snake.style.top=y+"px";
+            
+        }
+    
 }
 
-addEventListener ("keydown", move); //Слушатель нажатия клавиши для функции move
+addEventListener ("keydown", moveSnake)
