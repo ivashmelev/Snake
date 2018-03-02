@@ -3,9 +3,10 @@
     width: 500px;
     height: 500px;
     border: 1px solid black;
+    background: white;
 }
 
-.snake {
+div {
     width: 10px;
     height: 10px;
     background: black;

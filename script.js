@@ -1,18 +1,17 @@
-field = document.getElementsByClassName("field")[0];
-snake = document.getElementsByClassName("snake")[0];
-x = 250;
-y = 250;
-snake.style.left=x+"px";
-snake.style.top=y+"px";
-dist="";
-speed=1;
-start=Date.now();
-width=10;
-height=10;
-snake.style.width=width+"px";
-snake.style.height=height +"px";
-bodysnake=[{x:250, y:250}];
+field = document.querySelector("div.field");
+element = document.createElement("div");
+snake=[element];
+console.log(snake);
+// field.appendChild(element);
+console.log(element);
+for (var i=0; i<10; i++){
+    snake.push(element);
+       
+}
+    fx = document.createElement("h2");
+    field.appendChild(fx);    
 
+start = Date.now();
 var timer = setInterval(function() { // вычислить сколько времени прошло с начала анимации
     var timePassed = Date.now() - start;
 
@@ -36,42 +35,24 @@ function moveSnake(e, timePassed){
 
     switch(dist){
         case "right": 
-            var timePassed = Date.now() - start;
-            // x+=speed;
-            bodysnake.x+=speed;
-            console.log(bodysnake.x);
-            // snake.style.left=x+"px";
-            // snake.style.top=y+"px";
-
+            
         break;
 
         case "up":
-            var timePassed = Date.now() - start;
-            y-=speed;
-            snake.style.left=x+"px";
-            snake.style.top=y+"px";
+            
         break;
 
         case "left":
-            var timePassed = Date.now() - start;
-            x-=speed;
-            snake.style.left=x+"px";
-            snake.style.top=y+"px";
+            
         break;
 
         case "down":
-            var timePassed = Date.now() - start;
-            y+=speed;
-            snake.style.left=x+"px";
-            snake.style.top=y+"px";
+            
         break;
     }
 
         if (x>500 || y>500 || x<0 || y<0){           
-            x=250;
-            y=250;            
-            snake.style.left=x+"px";
-            snake.style.top=y+"px";
+            
             
         }
     
