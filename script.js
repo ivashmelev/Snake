@@ -1,37 +1,34 @@
+field = document.querySelector("div.field");  
+segment = document.createElement("div");
+snakeBody=[];
+weight=3;
+dist="";
+x=250;
+y=250;
 
-// field = document.querySelector("div.field");
- field=document.getElementsByClassName("field")[0];        
- element = document.createElement("div");
- snake=[];
- dist="";
- console.log(snake);
 
- // field.appendChild(element);
-    for (var i=0; i<10; i++){
-        
-        // console.log(snake);
-        
+    for (var i=0; i<weight; i++){
+        segment = document.createElement("div");
+        segment.className = "segment-snake";
+        snakeBody.push(segment);
+        field.appendChild(snakeBody[i]);        
     }
-    snake.push(element);
-    console.log(snake);
-    field.appendChild(element);
-    console.log(field);   
+    console.log(snakeBody);
 
-
-    ul = document.createElement("ul");
-    li = document.createElement("li");
-    list = [];
-    console.log(list);
-    for (var i=0; i<10; i++){
-        list.push(li);
-        // ul.appendChild(list[0]);
-        ul.appendChild(list[1]);
+    for (var i=0; i<weight; i++){
+        x-=10;
+        snakeBody[i].style.top= y+"px";
+        snakeBody[i].style.left= x+"px";
         
+               
     }
-    // ul.appendChild(list[i]);   
-    console.log(list);
-    console.log(ul);
-    document.body.appendChild(ul);
+    
+
+    line = weight-1;
+    field.removeChild(snakeBody[line]); // Удаление последнего элемента массива (связь через weight)
+    
+    console.log(line);
+
 start = Date.now();
 var timer = setInterval(function() { // вычислить сколько времени прошло с начала анимации
     var timePassed = Date.now() - start;
