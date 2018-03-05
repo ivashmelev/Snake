@@ -1,16 +1,37 @@
-field = document.querySelector("div.field");
-element = document.createElement("div");
-snake=[element];
-console.log(snake);
-// field.appendChild(element);
-console.log(element);
-for (var i=0; i<10; i++){
-    snake.push(element);
-       
-}
-    fx = document.createElement("h2");
-    field.appendChild(fx);    
 
+// field = document.querySelector("div.field");
+ field=document.getElementsByClassName("field")[0];        
+ element = document.createElement("div");
+ snake=[];
+ dist="";
+ console.log(snake);
+
+ // field.appendChild(element);
+    for (var i=0; i<10; i++){
+        
+        // console.log(snake);
+        
+    }
+    snake.push(element);
+    console.log(snake);
+    field.appendChild(element);
+    console.log(field);   
+
+
+    ul = document.createElement("ul");
+    li = document.createElement("li");
+    list = [];
+    console.log(list);
+    for (var i=0; i<10; i++){
+        list.push(li);
+        // ul.appendChild(list[0]);
+        ul.appendChild(list[1]);
+        
+    }
+    // ul.appendChild(list[i]);   
+    console.log(list);
+    console.log(ul);
+    document.body.appendChild(ul);
 start = Date.now();
 var timer = setInterval(function() { // вычислить сколько времени прошло с начала анимации
     var timePassed = Date.now() - start;
@@ -19,7 +40,6 @@ var timer = setInterval(function() { // вычислить сколько вре
   moveSnake(timePassed);     // рисует состояние анимации, соответствующее времени timePassed
 
 }, 20);
-
 
 function moveSnake(e, timePassed){
     switch(e.keyCode){
@@ -51,10 +71,10 @@ function moveSnake(e, timePassed){
         break;
     }
 
-        if (x>500 || y>500 || x<0 || y<0){           
+        // if (x>500 || y>500 || x<0 || y<0){           
             
             
-        }
+        // }
     
 }
 
