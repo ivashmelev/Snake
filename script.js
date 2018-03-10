@@ -1,7 +1,7 @@
 field = document.querySelector("div.field");  
 segment ="";
 snakeBody=[];
-weight=5;
+var weight=4;
 dist="";
 x=250;
 y=250;
@@ -48,7 +48,7 @@ var timer = setInterval(function() { // вычислить сколько вре
 }, speed);
 
 //Кролик
-max=500;
+max=490;
 min=0;
 rabbit=null;
         
@@ -58,15 +58,15 @@ rabbit=null;
         rabbit = document.createElement("div");
         rabbit.className="apple";
         field.appendChild(rabbit);
-        rabbit.style.top=randomY+"px";
-        rabbit.style.left=randomX+"px"; 
+        rabbit.style.top=250+"px";
+        rabbit.style.left=270+"px"; 
         console.log(parseInt(rabbit.style.left),parseInt(rabbit.style.top));
     }
 
-function moveSnake(e, timePassed){
+function moveSnake(e, timePassed,speed){
         if (snakeBody[0].x==parseInt(rabbit.style.left) && snakeBody[0].y==parseInt(rabbit.style.top)){
-        console.log("eat!");
-        field.removeChild(rabbit);
+            console.log("eat!");
+            field.removeChild(rabbit);
 
             randomX = Math.floor(Math.floor(Math.random()*(max-min+1)+min) / 10) * 10;
             randomY = Math.floor(Math.floor(Math.random()*(max-min+1)+min) / 10) * 10;
@@ -77,13 +77,25 @@ function moveSnake(e, timePassed){
             field.appendChild(rabbit);
             rabbit.style.top=randomY+"px";
             rabbit.style.left=randomX+"px"; 
-            this.weight+=1;
-
+            weight+=1;
+            snakeBody.splice(0,0,{segment:segment, x:snakeBody[0].x+10, y:snakeBody[0].y});
+            // snakeBody.pop();
+                // field.removeChild(snakeBody[line].segment);
+                
             
-            console.log(parseInt(rabbit.style.left),parseInt(rabbit.style.top));
+            // segment = document.createElement("div");
+            // segment.className="segment-snake";
+            // segment.innerHTML = i;
+            // snakeBody.push({segment:segment, x:x-=10, y:y});
+            // field.appendChild(snakeBody[line].segment);
+            
+            this.speed-=900;
+            
+            console.log(snakeBody);
             console.log(weight);
 
-    } 
+    }
+     
     switch(e.keyCode){
         case 39: dist="right";
         break;
@@ -99,6 +111,7 @@ function moveSnake(e, timePassed){
         case "right":
                 
                 snakeBody.splice(0,0,{segment:segment, x:snakeBody[0].x+10, y:snakeBody[0].y});
+                snakeBody.pop();
                 field.removeChild(snakeBody[line].segment);
                 
                 for (var i=0; i<1; i++){    
@@ -121,6 +134,7 @@ function moveSnake(e, timePassed){
 
         case "up":
             snakeBody.splice(0,0,{segment:segment, x:snakeBody[0].x, y:snakeBody[0].y-10});
+            snakeBody.pop();
             field.removeChild(snakeBody[line].segment);
             for (var i=0; i<1; i++){
                         segment = document.createElement("div");
@@ -140,6 +154,7 @@ function moveSnake(e, timePassed){
 
         case "left":
             snakeBody.splice(0,0,{segment:segment, x:snakeBody[0].x-10, y:snakeBody[0].y});
+            snakeBody.pop();
             field.removeChild(snakeBody[line].segment);
             for (var i=0; i<1; i++){
                         segment = document.createElement("div");
@@ -161,6 +176,7 @@ function moveSnake(e, timePassed){
 
         case "down":
             snakeBody.splice(0,0,{segment:segment, x:snakeBody[0].x, y:snakeBody[0].y+10});
+            snakeBody.pop();
             field.removeChild(snakeBody[line].segment);
             for (var i=0; i<1; i++){
                         segment = document.createElement("div");
