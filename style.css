@@ -17,6 +17,11 @@ div {
 }
 
 .segment-snake{
-    background: black;
+    background: pink;
     border-right: 1px solid yellow;
+    font-size: 7px;
+    color: green;
+    font-weight: 800;
+    text-align: center;
 }
+

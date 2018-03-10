@@ -1,23 +1,21 @@
 field = document.querySelector("div.field");  
 segment ="";
 snakeBody=[];
-weight=3;
+weight=4;
 dist="";
 x=250;
 y=250;
-speed=10;
+speed=1000;
 
     for (var i=0; i<weight; i++){
         segment = document.createElement("div");
         segment.className="segment-snake";
         segment.innerHTML = i;
-        snakeBody.push({segment:segment, x:x-=10, y:y, i:i});
+        snakeBody.push({segment:segment, x:x-=10, y:y});
         field.appendChild(snakeBody[i].segment);
     }
-    console.log(snakeBody);
 
     for (var i=0; i<weight; i++){
-        x-=10;
         ll = snakeBody[i].segment.style.top= snakeBody[i].y+"px";
         snakeBody[i].segment.style.left= snakeBody[i].x+"px";           
     }
@@ -25,28 +23,19 @@ speed=10;
 
     line = snakeBody.length-1; // Последний элемент массива
     count = snakeBody.length-line;
-    //field.removeChild(snakeBody[line]); // Удаление последнего элемента массива (связь через weight)
-    // snakeBody.pop();
-    // field.removeChild(snakeBody[line]);
     
+
     console.log(line);
 
-    // for (var i=0; i<count; i++){
-    //     line = snakeBody.length-1;
-        
-    //     field.removeChild(snakeBody[i]);
-    // }
+        line = snakeBody.length-1;
 
-    // firstSegment = x+=10; //Перенос последнего элемента в начало
+
     a1=250;
     xHead = a1;
     yHead = y;
-    // console.log(Number(firstSegment));
-    // yHead = snakeBody[0].style.top;
+
     console.log("x: "+xHead+" | "+"y: "+yHead);
-    // snakeBody[line].style.left = xHead +"px";
-    // snakeBody[line].style.top = yHead + "px";
-    // console.log(snakeBody[2].style.left);    
+
     
 
 start = Date.now();
@@ -54,9 +43,9 @@ var timer = setInterval(function() { // вычислить сколько вре
     var timePassed = Date.now() - start;
 
   
-//   moveSnake(timePassed);     // рисует состояние анимации, соответствующее времени timePassed
+  moveSnake(timePassed);     // рисует состояние анимации, соответствующее времени timePassed
 
-}, 20);
+}, speed);
 
 function moveSnake(e, timePassed){
     switch(e.keyCode){
@@ -72,43 +61,66 @@ function moveSnake(e, timePassed){
 
     switch(dist){
         case "right":
-            for (var i=0; i<3; i++){
-                snakeBody[0].x+=10; 
-                if (snakeBody[0].x>240){
-                    snakeBody[0].segment.style.left=snakeBody[0].x+"px";
-                    snakeBody[i].x=snakeBody[0].x-10;
-                    snakeBody[i].segment.style.left=snakeBody[i].x+"px";
-
+                
+                snakeBody.splice(0,0,{segment:segment, x:snakeBody[0].x+10, y:snakeBody[0].y});
+                field.removeChild(snakeBody[line].segment);
+                
+                for (var i=0; i<1; i++){    
+                        segment = document.createElement("div");
+                        segment.className="segment-snake";
+                        segment.innerHTML = i;
+                        field.appendChild(snakeBody[i].segment);
+                        snakeBody[i].segment.style.top= snakeBody[i].y+"px";
+                        snakeBody[i].segment.style.left= snakeBody[i].x+"px";
                 }
-            }
-            // for (var i in snakeBody){
-            //     snakeBody[0]=[snakeBody[i], snakeBody[i]=snakeBody[0]][0]; //Перебор ассоциативного массива
-            // }
-
+                
+                console.log(snakeBody[0].x+" | "+snakeBody[1].x);
         break;
 
         case "up":
-            for(var i=0; i<3; i++){
-                snakeBody[0].y-=10;
-                if (snakeBody[0].y<250){
-                    snakeBody[0].segment.style.top=snakeBody[0].y +"px";
-                    snakeBody[i].y=snakeBody[0].y-10;
-                    snakeBody[i].segment.style.top=snakeBody[i].y+"px";
+            snakeBody.splice(0,0,{segment:segment, x:snakeBody[0].x, y:snakeBody[0].y-10});
+            field.removeChild(snakeBody[line].segment);
+            for (var i=0; i<1; i++){
+                        segment = document.createElement("div");
+                        segment.className="segment-snake";
+                        segment.innerHTML = i;
+                        field.appendChild(snakeBody[i].segment);
+                        snakeBody[i].segment.style.top= snakeBody[i].y+"px";
+                        snakeBody[i].segment.style.left= snakeBody[i].x+"px";
                 }
-            }
-        // console.log(snakeBody);
-
-        // for (var i in snakeBody){
-        //     snakeBody[0]=[snakeBody[i], snakeBody[i]=snakeBody[0]][0]; //Перебор ассоциативного массива
-        // }
         break;
 
         case "left":
-            
+            snakeBody.splice(0,0,{segment:segment, x:snakeBody[0].x-10, y:snakeBody[0].y});
+            field.removeChild(snakeBody[line].segment);
+            for (var i=0; i<1; i++){
+                        segment = document.createElement("div");
+                        segment.className="segment-snake";
+                        segment.innerHTML = i;
+                        field.appendChild(snakeBody[i].segment);
+                        snakeBody[i].segment.style.top= snakeBody[i].y+"px";
+                        snakeBody[i].segment.style.left= snakeBody[i].x+"px";
+                }
+                if (snakeBody[0].x<snakeBody[1].x){
+                    snakeBody[0].y-10;
+                    snakeBody[0].segment.style.top=snakeBody[0].y+"px";
+                    console.log("alarm!");
+                }
+
+                console.log(snakeBody[0].x+" | "+snakeBody[1].x);
         break;
 
         case "down":
-            
+            snakeBody.splice(0,0,{segment:segment, x:snakeBody[0].x, y:snakeBody[0].y+10});
+            field.removeChild(snakeBody[line].segment);
+            for (var i=0; i<1; i++){
+                        segment = document.createElement("div");
+                        segment.className="segment-snake";
+                        segment.innerHTML = i;
+                        field.appendChild(snakeBody[i].segment);
+                        snakeBody[i].segment.style.top= snakeBody[i].y+"px";
+                        snakeBody[i].segment.style.left= snakeBody[i].x+"px";
+                }
         break;
     }
 
