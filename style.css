@@ -25,3 +25,9 @@ div {
     text-align: center;
 }
 
+.apple{
+    width:10px;
+    height: 10px;
+    background: red;
+    position: absolute;
+}
