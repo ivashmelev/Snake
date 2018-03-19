@@ -22,7 +22,7 @@ var timer = setInterval(function() { // вычислить сколько вре
 
 function move(e, timePassed){ //Функция движения змейки
     switch(e.keyCode){
-        case 39: dist="right";
+        case 39: dist="righ11t";
         break;
 
         case 38: dist="up";
